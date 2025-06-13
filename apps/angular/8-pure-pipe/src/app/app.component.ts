@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
+import { DashPipe } from './dash.pipe';
 
 @Component({
   selector: 'app-root',
+  imports: [DashPipe],
   template: `
     @for (person of persons; track person) {
-      {{ heavyComputation(person, $index) }}
+      {{ person | dash: $index }}
     }
   `,
 })
 export class AppComponent {
   persons = ['toto', 'jack'];
-
-  heavyComputation(name: string, index: number) {
-    // very heavy computation
-    return `${name} - ${index}`;
-  }
 }
