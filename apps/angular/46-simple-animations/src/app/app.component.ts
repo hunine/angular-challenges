@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { fadeInAnimation, staggerAnimation } from './app.animations';
 
 @Component({
   imports: [],
@@ -18,7 +19,7 @@ import { Component } from '@angular/core';
   `,
   template: `
     <div class="mx-20 my-40 flex gap-5">
-      <section>
+      <section @fadeInAnimation>
         <div>
           <h3>2008</h3>
           <p>
@@ -50,38 +51,25 @@ import { Component } from '@angular/core';
         </div>
       </section>
 
-      <section>
-        <div class="list-item">
-          <span>Name:</span>
-          <span>Samuel</span>
-        </div>
-
-        <div class="list-item">
-          <span>Age:</span>
-          <span>28</span>
-        </div>
-
-        <div class="list-item">
-          <span>Birthdate:</span>
-          <span>02.11.1995</span>
-        </div>
-
-        <div class="list-item">
-          <span>City:</span>
-          <span>Berlin</span>
-        </div>
-
-        <div class="list-item">
-          <span>Language:</span>
-          <span>English</span>
-        </div>
-
-        <div class="list-item">
-          <span>Like Pizza:</span>
-          <span>Hell yeah</span>
-        </div>
+      <section @staggerAnimation>
+        @for (item of list; track $index) {
+          <div class="list-item">
+            <span>{{ item.key }}:</span>
+            <span>{{ item.value }}</span>
+          </div>
+        }
       </section>
     </div>
   `,
+  animations: [fadeInAnimation, staggerAnimation],
 })
-export class AppComponent {}
+export class AppComponent {
+  readonly list: { key: string; value: string }[] = [
+    { key: 'Name', value: 'Samuel' },
+    { key: 'Age', value: '28' },
+    { key: 'Birthdate', value: '02.11.1995' },
+    { key: 'City', value: 'Berlin' },
+    { key: 'Language', value: 'English' },
+    { key: 'Like Pizza', value: 'Hell yeah' },
+  ];
+}
